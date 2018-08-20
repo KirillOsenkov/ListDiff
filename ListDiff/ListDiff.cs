@@ -170,7 +170,8 @@ namespace ListDiff
 			GenDiff (c, x, y, m, n, match);
 		}
 
-		void GenDiff (int[,] c, IList<S> x, IList<D> y, int i, int j, Func<S, D, bool> match) {
+		void GenDiff (int[,] c, IList<S> x, IList<D> y, int i, int j, Func<S, D, bool> match)
+		{
 			if (i > 0 && j > 0 && match (x[i - 1], y[j - 1])) {
 				GenDiff (c, x, y, i - 1, j - 1, match);
 				Actions.Add (new ListDiffAction<S, D> (ListDiffActionType.Update, x[i - 1], y[j - 1]));
@@ -193,18 +194,14 @@ namespace ListDiff
 		{
 			var sb = new StringBuilder ();
 
-			foreach (var action in Actions)
-			{
-				if (action.ActionType == ListDiffActionType.Update)
-				{
+			foreach (var action in Actions) {
+				if (action.ActionType == ListDiffActionType.Update) {
 					sb.Append (Convert.ToString (action.SourceItem));
 				}
-				else if (action.ActionType == ListDiffActionType.Add)
-				{
+				else if (action.ActionType == ListDiffActionType.Add) {
 					sb.Append ("+(" + Convert.ToString (action.DestinationItem) + ")");
 				}
-				else if (action.ActionType == ListDiffActionType.Remove)
-				{
+				else if (action.ActionType == ListDiffActionType.Remove) {
 					sb.Append ("-(" + Convert.ToString (action.SourceItem) + ")");
 				}
 			}
